@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import { Providers } from "~/components/providers";
+import { Inter as FontSans } from "next/font/google";
+import { cn } from "~/lib/utils";
 
 const APP_NAME = "Skills PWA App";
 const APP_DEFAULT_TITLE = "Skils PWA App";
@@ -47,7 +49,10 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export default function RootLayout({
   children,
@@ -56,7 +61,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
